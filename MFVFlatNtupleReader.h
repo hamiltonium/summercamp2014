@@ -301,17 +301,17 @@ MFVFlatNtupleReader::MFVFlatNtupleReader(TTree *tree) : fChain(0)
 #else
     TString path = "";
 #endif
-    chain->Add(path + "mfv_neutralino_tau0100um_M0400.root/mfvFlatTree/t");
-    chain->Add(path + "mfv_neutralino_tau0300um_M0400.root/mfvFlatTree/t");
-    chain->Add(path + "mfv_neutralino_tau1000um_M0400.root/mfvFlatTree/t");
-    chain->Add(path + "mfv_neutralino_tau9900um_M0400.root/mfvFlatTree/t");
-    chain->Add(path + "qcdht0100.root/mfvFlatTree/t");
-    chain->Add(path + "qcdht0250.root/mfvFlatTree/t");
-    chain->Add(path + "qcdht0500.root/mfvFlatTree/t");
+//    chain->Add(path + "mfv_neutralino_tau0100um_M0400.root/mfvFlatTree/t");
+//    chain->Add(path + "mfv_neutralino_tau0300um_M0400.root/mfvFlatTree/t");
+//    chain->Add(path + "mfv_neutralino_tau1000um_M0400.root/mfvFlatTree/t");
+//    chain->Add(path + "mfv_neutralino_tau9900um_M0400.root/mfvFlatTree/t");
+//    chain->Add(path + "qcdht0100.root/mfvFlatTree/t");
+//    chain->Add(path + "qcdht0250.root/mfvFlatTree/t");
+//    chain->Add(path + "qcdht0500.root/mfvFlatTree/t");
     chain->Add(path + "qcdht1000.root/mfvFlatTree/t");
-    chain->Add(path + "ttbardilep.root/mfvFlatTree/t");
-    chain->Add(path + "ttbarhadronic.root/mfvFlatTree/t");
-    chain->Add(path + "ttbarsemilep.root/mfvFlatTree/t");
+//    chain->Add(path + "ttbardilep.root/mfvFlatTree/t");
+//    chain->Add(path + "ttbarhadronic.root/mfvFlatTree/t");
+//    chain->Add(path + "ttbarsemilep.root/mfvFlatTree/t");
     tree = chain;
 #endif // SINGLE_TREE
 
