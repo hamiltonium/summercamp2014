@@ -76,7 +76,18 @@ only thing it does right now is count the number of events read per
 sample. Then the final "analysis" prints out those counts
 [here](https://github.com/jordantucker/summercamp2014/blob/master/MFVFlatNtupleReader.C#L85-86).
 
-To start, try to implement the cuts from the current analysis and
-reproduce the number of events on just the `qcdht1000` sample. You
-should find 
+To start, try to implement the cuts from the current analysis to count
+what we call good vertices:
+* number of tracks >= 5
+* number of tracks w/ pT > 3 GeV >= 3
+* track pair delta R min < 0.4
+* 1.2 < track pair delta R max < 4
+* uncertainty on xy distance to beamspot < 25 microns
+* number of associated jets >= 1
+* sum of number of hits on tracks behind vertex position == 0
 
+Count the number of events in just the `qcdht1000` sample (3088150 events) that have
+* at least one good vertex (you should find 22743),
+* at least two good vertices (you should find 19),
+* at least two good vertices, one pair of which are separated in the
+xy plane by more than 500 microns (you should find 2).
