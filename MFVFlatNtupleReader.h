@@ -10,6 +10,9 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include <iostream>
+#include <TH1.h>
+#include <string>
 
 // Header file for the classes stored in the TTree if any.
 #include <vector>
@@ -259,6 +262,15 @@ public :
   TBranch        *b_vtx_trackpairdrmax;   //!
   TBranch        *b_vtx_trackpairdravg;   //!
   TBranch        *b_vtx_trackpairdrrms;   //!
+  
+  // my histograms
+  TH1F *h_tot;
+  TH1F *h_back;
+  TH1F *h_sig;
+  
+  TH1F *h_vtx_ntracks_tot;
+  TH1F *h_vtx_ntracks_sig;
+  TH1F *h_vtx_ntracks_back;
 
   MFVFlatNtupleReader(TTree *tree=0);
   virtual ~MFVFlatNtupleReader();
@@ -269,6 +281,12 @@ public :
   virtual void     Loop();
   virtual Bool_t   Notify();
   virtual void     Show(Long64_t entry = -1);
+  virtual bool     goodVertex_old(int i);
+  virtual bool     goodVertex(int i);
+  virtual bool     includesLepton();
+  virtual void     loopDisplaySigBack();
+  virtual void     genVtx_ntracksHists();
+  virtual void     genHists(std::string target);
 };
 
 #endif
@@ -590,4 +608,43 @@ Int_t MFVFlatNtupleReader::Cut(Long64_t)
   // returns -1 otherwise.
   return 1;
 }
+
+//the cuts from the old analysis
+bool MFVFlatNtupleReader::goodVertex_old(int i)
+{
+  //std::cout << "vtx_trackpairdrmax = " << (*vtx_trackpairdrmax)[i] << std::endl;
+  if ((int)((*vtx_ntracks)[i]) < 5) return false;
+  if ((*vtx_ntracksptgt3)[i] < 3) return false;
+  if ((*vtx_trackpairdrmin)[i] >= 0.4) return false;
+  if ((*vtx_trackpairdrmax)[i] <= 1.2) return false;
+  if ((*vtx_trackpairdrmax)[i] >= 4) return false;
+  if ((*vtx_bs2derr)[i] >= 0.0025) return false;
+  if ((int)((*vtx_njets)[i]) < 1) return false;
+  if ((int)((*vtx_sumnhitsbehind)[i]) != 0) return false;
+  return true;
+}
+
+//my own functions that should help with making cuts
+bool MFVFlatNtupleReader::goodVertex(int i)
+{
+  //std::cout << "vtx_trackpairdrmax = " << (*vtx_trackpairdrmax)[i] << std::endl;
+  
+  if (! MFVFlatNtupleReader::includesLepton()) return false;
+  //if ((int)((*vtx_ntracks)[i]) < 5) return false;
+  //if ((*vtx_ntracksptgt3)[i] < 3) return false;
+  //if ((*vtx_trackpairdrmin)[i] >= 0.4) return false;
+  //if ((*vtx_trackpairdrmax)[i] <= 1.2) return false;
+  //if ((*vtx_trackpairdrmax)[i] >= 4) return false;
+  //if ((*vtx_bs2derr)[i] >= 0.0025) return false;
+  //if ((int)((*vtx_njets)[i]) < 1) return false;
+  //if ((int)((*vtx_sumnhitsbehind)[i]) != 0) return false;
+  return true;
+}
+
+bool MFVFlatNtupleReader::includesLepton()
+{
+  if (lep_id->size() != 0) return true;
+  else return false;
+}
+
 #endif // #ifdef MFVFlatNtupleReader_cxx
